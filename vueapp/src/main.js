@@ -4,7 +4,7 @@ import store from './store'
 import router from './router'
 
 import HomeForum from './components/home/indexForum'
-import HomeStore from './components/home/indexStore'
+// import HomeStore from './components/home/indexStore'
 
 
 Vue.config.productionTip = false
