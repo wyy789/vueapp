@@ -5,10 +5,7 @@
             <el-aside width="200px">
                 <el-row class="tac">
                     <el-col :span="24">
-                        <el-menu 
-                        router
-                        default-active="1" 
-                        class="el-menu-vertical-demo">
+                        <el-menu router default-active="1" class="el-menu-vertical-demo">
                             <!-- <el-menu-item index="1">
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">门店申请</span>
@@ -31,7 +28,7 @@
                                 <i class="el-icon-setting"></i>
                                 <span slot="title">商品管理</span>
                             </el-menu-item>
-                            <el-menu-item index="4">
+                            <el-menu-item index="/indexStore/serivce">
                                 <i class="el-icon-setting"></i>
                                 <span slot="title">服务管理</span>
                             </el-menu-item>
@@ -39,7 +36,9 @@
                     </el-col>
                 </el-row>
             </el-aside>
-            <el-main><router-view></router-view></el-main>
+            <el-main>
+                <router-view></router-view>
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -58,7 +57,7 @@
 
 .el-main {
     text-align: center;
-    line-height: 160px;
+    /* line-height: 160px; */
 }
 
 body > .el-container {
