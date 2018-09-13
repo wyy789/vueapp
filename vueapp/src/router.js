@@ -6,12 +6,14 @@ import commodity from "./components/commodity/commodity"
 import login from "./components/login/login"
 import reg from "./components/login/reg"
 import serivce from "./components/serivce/serivce"
-// import spoilmanagement from "./components/spoilmanagement/spoilmanagement"
+import spoilmanagement from "./components/spoilmanagement/spoilmanagement"
 import storeapplication from "./components/storeapplication/storeapplication"
 import storemanagement from "./components/storemanagement/storemanagement"
 import theorder from "./components/theorder/theorder"
-// import usercontrol from "./components/usercontrol/usercontrol"
+import usercontrol from "./components/usercontrol/usercontrol"
 import indexStore from "./components/home/indexStore"
+import indexForum from "./components/home/indexForum"
+import storelist from "./components/storelist/storelist"
 
 Vue.use(Router)
 
@@ -32,29 +34,56 @@ export default new Router({
       name: 'indexStore',
       component: indexStore,
       children:[ {
-        path: '/commodity',
+        path: 'commodity',
         name: 'commodity',
         component: commodity
       },
       {
-        path: '/serivce',
+        path: 'serivce',
         name: 'serivce',
         component: serivce
       },
       {
-        path: '/storeapplication',
+        path: 'storeapplication',
         name: 'storeapplication',
         component: storeapplication
       },
       {
-        path: '/storemanagement',
+        path: 'storemanagement',
         name: 'storemanagement',
         component: storemanagement
       },
       {
-        path: '/theorder',
+        path: 'theorder',
         name: 'theorder',
         component: theorder
+      },
+      {
+        path: 'storelist',
+        name: 'storelist',
+        component: storelist
+      },]
+    },
+    {
+      path: '/indexForum',
+      name: 'indexForum',
+      component: indexForum,
+      children:[
+
+      {
+        path: 'storemanagement',
+        name: 'storemanagement',
+        component: storemanagement
+      },
+      {
+        path: 'spoilmanagement',
+        name: 'spoilmanagement',
+        component: spoilmanagement
+      },
+      {
+        path: 'usercontrol',
+        name: 'usercontrol',
+        component: usercontrol
       },]
     },
    
