@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+// import Home from './views/Home.vue'
 
 import commodity from "./components/commodity/commodity"
 import login from "./components/login/login"
@@ -11,7 +11,9 @@ import storeapplication from "./components/storeapplication/storeapplication"
 import storemanagement from "./components/storemanagement/storemanagement"
 import theorder from "./components/theorder/theorder"
 import usercontrol from "./components/usercontrol/usercontrol"
+import indexForum from './components/home/indexForum'
 
+// import StoreList from './components/storemanagement/storemanagement'
 Vue.use(Router)
 
 export default new Router({
@@ -27,40 +29,47 @@ export default new Router({
       component: reg
     },
     {
-      path: '/commodity',
-      name: 'commodity',
-      component: commodity
-    },
-    {
-      path: '/serivce',
-      name: 'serivce',
-      component: serivce
-    },
-    {
-      path: '/spoilmanagement',
-      name: 'spoilmanagement',
-      component: spoilmanagement
-    },
-    {
-      path: '/storeapplication',
-      name: 'storeapplication',
-      component: storeapplication
-    },
-    {
-      path: '/storemanagement',
-      name: 'storemanagement',
-      component: storemanagement
-    },
-    {
-      path: '/theorder',
-      name: 'theorder',
-      component: theorder
-    },
-    {
-      path: '/usercontrol',
-      name: 'usercontrol',
-      component: usercontrol
-    },
+      path: '/indexForum',
+      name: 'indexForum',
+      component: indexForum,
+      children: [
+        {
+          path: 'commodity',
+          name: 'commodity',
+          component: commodity
+        },
+        {
+          path: 'serivce',
+          name: 'serivce',
+          component: serivce
+        },
+        {
+          path: 'spoilmanagement',
+          name: 'spoilmanagement',
+          component: spoilmanagement
+        },
+        {
+          path: 'storeapplication',
+          name: 'storeapplication',
+          component: storeapplication
+        },
+        {
+          path: 'storemanagement',
+          name: 'Storemanagement',
+          component: storemanagement
+        },
+        {
+          path: '/theorder',
+          name: 'theorder',
+          component: theorder
+        },
+        {
+          path: '/usercontrol',
+          name: 'usercontrol',
+          component: usercontrol
+        },
+      ]
+    }
     // {
     //   path: '/reg',
     //   name: 'reg',
