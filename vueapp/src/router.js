@@ -6,11 +6,12 @@ import commodity from "./components/commodity/commodity"
 import login from "./components/login/login"
 import reg from "./components/login/reg"
 import serivce from "./components/serivce/serivce"
-import spoilmanagement from "./components/spoilmanagement/spoilmanagement"
+// import spoilmanagement from "./components/spoilmanagement/spoilmanagement"
 import storeapplication from "./components/storeapplication/storeapplication"
 import storemanagement from "./components/storemanagement/storemanagement"
 import theorder from "./components/theorder/theorder"
-import usercontrol from "./components/usercontrol/usercontrol"
+// import usercontrol from "./components/usercontrol/usercontrol"
+import indexStore from "./components/home/indexStore"
 
 Vue.use(Router)
 
@@ -27,40 +28,36 @@ export default new Router({
       component: reg
     },
     {
-      path: '/commodity',
-      name: 'commodity',
-      component: commodity
+      path: '/indexStore',
+      name: 'indexStore',
+      component: indexStore,
+      children:[ {
+        path: '/commodity',
+        name: 'commodity',
+        component: commodity
+      },
+      {
+        path: '/serivce',
+        name: 'serivce',
+        component: serivce
+      },
+      {
+        path: '/storeapplication',
+        name: 'storeapplication',
+        component: storeapplication
+      },
+      {
+        path: '/storemanagement',
+        name: 'storemanagement',
+        component: storemanagement
+      },
+      {
+        path: '/theorder',
+        name: 'theorder',
+        component: theorder
+      },]
     },
-    {
-      path: '/serivce',
-      name: 'serivce',
-      component: serivce
-    },
-    {
-      path: '/spoilmanagement',
-      name: 'spoilmanagement',
-      component: spoilmanagement
-    },
-    {
-      path: '/storeapplication',
-      name: 'storeapplication',
-      component: storeapplication
-    },
-    {
-      path: '/storemanagement',
-      name: 'storemanagement',
-      component: storemanagement
-    },
-    {
-      path: '/theorder',
-      name: 'theorder',
-      component: theorder
-    },
-    {
-      path: '/usercontrol',
-      name: 'usercontrol',
-      component: usercontrol
-    },
+   
     // {
     //   path: '/reg',
     //   name: 'reg',
