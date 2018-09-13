@@ -14,13 +14,12 @@
                                 <i class="el-icon-document"></i>
                                 <span slot="title">门店管理</span>
                             </el-menu-item>
-                            <el-menu-item index="3">
+                            <el-menu-item index="/indexForum/spoilmanagement">
                                 <i class="el-icon-setting"></i>
                                 <span slot="title">宠主管理</span>
                             </el-menu-item>
                         </el-menu>
                     </el-col>
-                    
                 </el-row>
             </el-aside>
             <el-main>
