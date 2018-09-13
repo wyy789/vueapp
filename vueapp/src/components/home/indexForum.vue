@@ -40,8 +40,9 @@
 }
 
 .el-main {
-    text-align: center;
-    line-height: 160px;
+    /* text-align: center;  */
+     line-height: 160px;
+     
 }
 
 body > .el-container {
