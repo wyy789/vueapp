@@ -39,7 +39,7 @@ export default new Router({
     {
       path: '/spoilmanagement',
       name: 'spoilmanagement',
-      component: spoilmanagement
+      component: spoilmanagementn
     },
     {
       path: '/storeapplication',
