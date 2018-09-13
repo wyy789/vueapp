@@ -8,7 +8,7 @@
   "port": "8081",
   "db": {
     "url": "mongodb://127.0.0.1:27017",
-    "dbname": "emps"
+    "dbname": "pet"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
