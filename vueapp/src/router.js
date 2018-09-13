@@ -50,11 +50,6 @@ export default new Router({
         component: storeapplication
       },
       {
-        path: 'storemanagement',
-        name: 'storemanagement',
-        component: storemanagement
-      },
-      {
         path: 'theorder',
         name: 'theorder',
         component: theorder
