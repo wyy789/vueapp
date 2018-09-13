@@ -31,7 +31,7 @@
                                 <i class="el-icon-setting"></i>
                                 <span slot="title">商品管理</span>
                             </el-menu-item>
-                            <el-menu-item index="4">
+                            <el-menu-item index="/indexStore/serivce">
                                 <i class="el-icon-setting"></i>
                                 <span slot="title">服务管理</span>
                             </el-menu-item>
