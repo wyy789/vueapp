@@ -15,6 +15,7 @@ import indexStore from "./components/home/indexStore"
 import indexForum from "./components/home/indexForum"
 import storelist from "./components/storelist/storelist"
 
+// import StoreList from './components/storemanagement/storemanagement'
 Vue.use(Router)
 
 export default new Router({
@@ -47,11 +48,6 @@ export default new Router({
         path: 'storeapplication',
         name: 'storeapplication',
         component: storeapplication
-      },
-      {
-        path: 'storemanagement',
-        name: 'storemanagement',
-        component: storemanagement
       },
       {
         path: 'theorder',
