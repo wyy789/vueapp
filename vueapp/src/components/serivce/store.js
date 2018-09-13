@@ -27,15 +27,23 @@ export default {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                // data: JSON.stringify({
-                //     page: curPage || context.state.curPage,
-                //     rows: eachPage || context.state.eachPage
-                // })
             }).then(response => {
                 return response.json()
             })
             console.log(data,12312123)
             context.commit("getServiceByPage", data)
+        },
+
+        async asyncDeleteService(context,id) {
+            await fetch(`/service/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            }).then(response => {
+                return "success"
+            })
+        
         }
     }
 }

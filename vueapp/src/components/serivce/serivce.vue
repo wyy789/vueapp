@@ -72,7 +72,7 @@
       width="100">
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-        <el-button type="text" size="small">删除</el-button>
+        <el-button @click="deleteData(scope.row)" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -86,18 +86,18 @@
     :total="total">
   </el-pagination>
   <!-- 增加 -->
-<el-dialog title="新增服务" :visible.sync="dialogFormVisible" center>
+<el-dialog title="新增服务" :visible.sync="dialogFormVisible" center class="dialogService">
     <el-form :model="form">
         <el-form-item label="服务名称" :label-width="formLabelWidth">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
+            <el-input v-model="form.name" auto-complete="off" style="width:350px"></el-input>
         </el-form-item>
-        <el-form-item label="服务类型" :label-width="formLabelWidth">
+        <el-form-item label="服务类型" :label-width="formLabelWidth" class="type">
             <el-select v-model="form.region" placeholder="请选择服务类型">
                 <el-option label="洁毛" value="shanghai"></el-option>
                 <el-option label="修甲" value="beijing"></el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="服务排期" :label-width="formLabelWidth">
+        <el-form-item label="服务排期" :label-width="formLabelWidth" >
               <el-time-picker
                     is-range
                     v-model="time"
@@ -108,19 +108,19 @@
                 </el-time-picker>
         </el-form-item>
         <el-form-item label="适用规格" :label-width="formLabelWidth">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
+            <el-input v-model="form.desc" auto-complete="off" style="width:350px"></el-input>
         </el-form-item>
         <el-form-item label="服务规格" :label-width="formLabelWidth">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
+            <el-input v-model="form.region" auto-complete="off" style="width:350px"></el-input>
         </el-form-item>
         <el-form-item label="服务耗时" :label-width="formLabelWidth">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
+            <el-input v-model="form.date1" auto-complete="off" style="width:350px"></el-input>
         </el-form-item>
         <el-form-item label="服务员等级" :label-width="formLabelWidth">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
+            <el-input v-model="form.date2" auto-complete="off" style="width:350px"></el-input>
         </el-form-item>
         <el-form-item label="服务价格" :label-width="formLabelWidth">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
+            <el-input v-model="form.resource" auto-complete="off" style="width:350px"></el-input>
         </el-form-item>
 
     </el-form>
@@ -173,7 +173,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("serivce", ["asyncGetServiceByPage"]),
+    ...mapActions("serivce", ["asyncGetServiceByPage","asyncDeleteService"]),
     ...mapMutations("serivce", ["setCurPage","setEachPage"]),
     handleSizeChange(val) {
       console.log(123, val);
@@ -182,6 +182,10 @@ export default {
     handleCurrentChange(val) {
       console.log(456, val);
       this.setCurPage(val);
+    },
+    deleteData(data){
+        this.asyncDeleteService(data._id);
+        this.asyncGetServiceByPage();
     }
   }
 };
@@ -196,5 +200,21 @@ export default {
 }
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
+}
+.type .el-input{
+    width: 350px;
+}
+
+.dialogService .el-dialog__header{
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    margin: auto;
+}
+.dialogService .el-dialog__footer{
+    width: 200px;
+    height: 80px;
+    line-height: 80px;
+    margin: auto;
 }
 </style>
