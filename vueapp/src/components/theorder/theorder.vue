@@ -103,26 +103,26 @@ export default {
     }
   },
   created() {
-    console.log(this,"15")
+    // console.log(this,"15")
     this.asyncGetEmpByPage();
   },
   computed: {
     ...mapState("theorder", ["curpage", "eachpage", "maxpage", "total", "rows"])
   },
-  watch: {
-    curpage() {
-      this.asyncGetEmpByPage({
-        type:this.input5,
-        value:this.select,
-      });
-    },
-    eachpage() {
-      this.asyncGetEmpByPage({
-        type:this.input5,
-        value:this.select,
-      });
-    }
-  },
+  // watch: {
+  //   curpage() {
+  //     this.asyncGetEmpByPage({
+  //       type:this.input5,
+  //       value:this.select,
+  //     });
+  //   },
+  //   eachpage() {
+  //     this.asyncGetEmpByPage({
+  //       type:this.input5,
+  //       value:this.select,
+  //     });
+  //   }
+  // },
   methods: {
     serach(){
       // console.log(this.input5,this.select)
@@ -153,11 +153,19 @@ export default {
       },
     handleSizeChange(val) {
       // console.log(`每页 ${val} 条`);
-      this.setEachPage(val);
+       this.setEachPage(val);
+        this.asyncGetEmpByPage({
+          type:this.input5,
+        value:this.select,
+        })
     },
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}`);
-      this.setCurPage(val);
+       this.setCurPage(val);
+       this.asyncGetEmpByPage({
+          type:this.input5,
+        value:this.select,
+        })
     },
     ...mapMutations("theorder", ["setEachPage", "setCurPage",]),
     ...mapActions("theorder", ["asyncGetEmpByPage","asyncdelete","asyncserach"]),
