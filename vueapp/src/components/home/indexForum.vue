@@ -43,8 +43,14 @@
 }
 
 .el-main {
+<<<<<<< HEAD
+    /* text-align: center;  */
+     line-height: 160px;
+     
+=======
     text-align: center;
     /* line-height: 160px; */
+>>>>>>> fe60ae2dd454ed930f1fca4086394674abb68e29
 }
 
 body > .el-container {
