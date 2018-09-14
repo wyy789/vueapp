@@ -45,11 +45,8 @@
   ],
   "vue": {
     "devServer": {
-      "proxy": "http://localhost:8081"
+      "proxy": "http://localhost:3000"
     }
   }
-<<<<<<< HEAD
  
-=======
->>>>>>> fe60ae2dd454ed930f1fca4086394674abb68e29
 }
