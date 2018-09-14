@@ -11,9 +11,7 @@ var commodityRouter = require('./routes/commodity');
 var loginRouter = require('./routes/login');
 var memberRouter = require('./routes/member');
 var serivceRouter = require('./routes/serivce');
-var theordrRouter = require('./routes/theordr');
-
-
+var theorderRouter = require('./routes/theorder');
 
 
 var app = express();
@@ -35,7 +33,7 @@ app.use('/commodity', commodityRouter);
 app.use('/login', loginRouter);
 app.use('/member', memberRouter);
 app.use('/serivce', serivceRouter);
-app.use('/theordr', theordrRouter);
+app.use('/theorder', theorderRouter);
 
 
 // catch 404 and forward to error handler

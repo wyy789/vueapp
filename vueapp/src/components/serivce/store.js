@@ -30,7 +30,7 @@ export default {
             }).then(response => {
                 return response.json()
             })
-            console.log(data,12312123)
+            // console.log(data,12312123)
             context.commit("getServiceByPage", data)
         },
 
