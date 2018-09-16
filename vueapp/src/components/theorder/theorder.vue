@@ -1,13 +1,13 @@
 <template>
     <div>
-    <div>
-      <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" style="width:500px;">
+    <div style="float: left;">
+      <el-input placeholder="请输入搜索内容" v-model="input5" class="input-with-select" style="width:600px;">
       <el-select v-model="select" slot="prepend" placeholder="请选择" >
-      <el-option label="姓名" value="1"></el-option>
-      <el-option label="订单号" value="2"></el-option>
-      <el-option label="用户电话" value="3"></el-option>
+      <el-option label="姓名" value="memberName"></el-option>
+      <el-option label="商品/服务" value="goodsMaterial"></el-option>
+      <el-option label="用户电话" value="memberPhone"></el-option>
     </el-select>
-    <el-button slot="append" icon="el-icon-search"></el-button>
+    <el-button slot="append" icon="el-icon-search" @click="serach">搜索</el-button>
   </el-input>
 </div>
     <el-table
@@ -96,29 +96,41 @@
 <script>
 import { mapActions, mapState, mapMutations } from "vuex";
 export default {
-  data() {
-    return {
-      input3: "",
-      input4: "",
-      input5: "",
-      select: ""
-    };
+  data(){
+    return{
+      input5:"",
+      select:""
+    }
   },
   created() {
+    // console.log(this,"15")
     this.asyncGetEmpByPage();
   },
   computed: {
     ...mapState("theorder", ["curpage", "eachpage", "maxpage", "total", "rows"])
   },
-  watch: {
-    curpage() {
-      this.asyncGetEmpByPage({ curpage: this.curpage });
-    },
-    eachpage() {
-      this.asyncGetEmpByPage({ eachpage: this.eachpage });
-    }
-  },
+  // watch: {
+  //   curpage() {
+  //     this.asyncGetEmpByPage({
+  //       type:this.input5,
+  //       value:this.select,
+  //     });
+  //   },
+  //   eachpage() {
+  //     this.asyncGetEmpByPage({
+  //       type:this.input5,
+  //       value:this.select,
+  //     });
+  //   }
+  // },
   methods: {
+    serach(){
+      // console.log(this.input5,this.select)
+      this.asyncserach({
+        type:this.input5,
+        value:this.select,
+      })
+    },
     open2(row) {
       // console.log(this)
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -141,14 +153,22 @@ export default {
       },
     handleSizeChange(val) {
       // console.log(`每页 ${val} 条`);
-      this.setEachPage(val);
+       this.setEachPage(val);
+        this.asyncGetEmpByPage({
+          type:this.input5,
+        value:this.select,
+        })
     },
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}`);
-      this.setCurPage(val);
+       this.setCurPage(val);
+       this.asyncGetEmpByPage({
+          type:this.input5,
+        value:this.select,
+        })
     },
-    ...mapMutations("theorder", ["setEachPage", "setCurPage", "max", "min"]),
-    ...mapActions("theorder", ["asyncGetEmpByPage","asyncdelete"]),
+    ...mapMutations("theorder", ["setEachPage", "setCurPage",]),
+    ...mapActions("theorder", ["asyncGetEmpByPage","asyncdelete","asyncserach"]),
     firstPagr() {
       this.asyncGetEmpByPage({ curPage: 1 });
     },
