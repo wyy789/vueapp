@@ -2,7 +2,7 @@ export default {
     namespaced: true,
     state: {
         curpage: 0,
-        eachpage: 10,
+        eachpage: 5,
         rows: [],
         total: 0,
         maxpage: 0

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+// import Home from './views/Home.vue'
 
 import commodity from "./components/commodity/commodity"
 import login from "./components/login/login"
@@ -15,6 +15,7 @@ import indexStore from "./components/home/indexStore"
 import indexForum from "./components/home/indexForum"
 import storelist from "./components/storelist/storelist"
 
+// import StoreList from './components/storemanagement/storemanagement'
 Vue.use(Router)
 
 export default new Router({
@@ -32,37 +33,31 @@ export default new Router({
       path: '/indexStore',
       name: 'indexStore',
       component: indexStore,
-      children: [{
-          path: 'commodity',
-          name: 'commodity',
-          component: commodity
-        },
-        {
-          path: 'serivce',
-          name: 'serivce',
-          component: serivce
-        },
-        {
-          path: 'storeapplication',
-          name: 'storeapplication',
-          component: storeapplication
-        },
-        {
-          path: 'storemanagement',
-          name: 'storemanagement',
-          component: storemanagement
-        },
-        {
-          path: 'theorder',
-          name: 'theorder',
-          component: theorder
-        },
-        {
-          path: 'storelist',
-          name: 'storelist',
-          component: storelist
-        },
-      ]
+      children:[ {
+        path: 'commodity',
+        name: 'commodity',
+        component: commodity
+      },
+      {
+        path: 'serivce',
+        name: 'serivce',
+        component: serivce
+      },
+      {
+        path: 'storeapplication',
+        name: 'storeapplication',
+        component: storeapplication
+      },
+      {
+        path: 'theorder',
+        name: 'theorder',
+        component: theorder
+      },
+      {
+        path: 'storelist',
+        name: 'storelist',
+        component: storelist
+      },]
     },
     {
       path: '/indexForum',

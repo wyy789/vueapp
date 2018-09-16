@@ -1,6 +1,6 @@
 <template>
 <div>
-<div>
+<div style="margin-bottom:10px;float:left">
   <el-button slot="prepend" icon="el-icon-plus" style="margin-right:10px" @click="dialogFormVisible = true" ></el-button>
   <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
   <el-form :model="form">
@@ -190,7 +190,7 @@
       </template>
     </el-table-column>
   </el-table>
-    <div class="block" style="margin-left:20px;margin-top:10px;width:800px;">
+    <div class="block" style="margin-top:10px;width:1000px">
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -202,8 +202,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
-    <el-button type="text"  @click="homePage">首页</el-button>
-    <el-button type="text" @click="lastPage">尾页</el-button>
   </div>
   </div>
 </template>
@@ -249,8 +247,6 @@ export default {
     ...mapMutations("commodity", [
       "setCurPage",
       "setEachPage",
-      "homePage",
-      "lastPage",
       "prePage",
       "nextPage"
     ]),
@@ -271,14 +267,6 @@ export default {
     handleDelete(index, row) {
       this.asyncDleteData(row._id);
       this.asyncGetGoodsByPage();
-    },
-    homePage() {
-      this.setCurPage(1);
-      this.asyncGetGoodsByPage();
-    },
-    lastPage() {
-      this.setCurPage(this.maxpage);
-      this.asyncGetGoodsByPage();
     }
   },
   
@@ -291,6 +279,9 @@ export default {
   }
   .input-with-select .el-input-group__prepend {
     background-color: #fff;
+  }
+  .block{
+    margin-right:0;
   }
 </style>
 
