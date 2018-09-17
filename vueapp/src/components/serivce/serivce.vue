@@ -71,7 +71,7 @@
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <el-button  type="text" size="small">修改</el-button>
+        <el-button @click="putData(scope.row)" type="text" size="small">修改</el-button>
         <el-button @click="deleteData(scope.row)" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
@@ -177,30 +177,24 @@ export default {
   computed: {
     ...mapState("serivce", ["curPage", "eachPage", "maxpage", "total", "rows"])
   },
-  watch: {
-    curPage() {
-      let obj ={};
-      obj.type = this.select;
-      obj.text = this.searchInput;
-      this.asyncGetServiceByPage(obj);
-    },
-    eachPage() {
-      let obj ={};
-      obj.type = this.select;
-      obj.text = this.searchInput;
-      this.asyncGetServiceByPage(obj);
-    }
-  },
+
   methods: {
     ...mapActions("serivce", ["asyncGetServiceByPage","asyncDeleteService","asyncAddService","asyncSearchService"]),
     ...mapMutations("serivce", ["setCurPage","setEachPage"]),
     handleSizeChange(val) {
-      console.log(123, val);
       this.setEachPage(val);
+      let obj ={};
+      obj.type = this.select;
+      obj.text = this.searchInput;
+      this.asyncGetServiceByPage(obj);
+ 
     },
     handleCurrentChange(val) {
-      console.log(456, val);
       this.setCurPage(val);
+      let obj ={};
+      obj.type = this.select;
+      obj.text = this.searchInput;
+      this.asyncGetServiceByPage(obj);
     },
     deleteData(data){
         this.asyncDeleteService(data._id);
@@ -232,6 +226,9 @@ export default {
       this.asyncSearchService(obj)
       // this.searchInput = "";
       // this.select ="";
+    },
+    putData(row){
+
     }
   }
 };

@@ -19,8 +19,7 @@ import storelist from "./components/storelist/storelist"
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'login',
       component: login
@@ -64,25 +63,30 @@ export default new Router({
       path: '/indexForum',
       name: 'indexForum',
       component: indexForum,
-      children:[
-
-      {
-        path: 'storemanagement',
-        name: 'storemanagement',
-        component: storemanagement
-      },
-      {
-        path: 'spoilmanagement',
-        name: 'spoilmanagement',
-        component: spoilmanagement
-      },
-      {
-        path: 'usercontrol',
-        name: 'usercontrol',
-        component: usercontrol
-      },]
+      children: [
+          {
+            path: 'storemanagement',
+            name: 'storemanagement',
+            component: storemanagement
+          },
+          {
+            path: 'spoilmanagement',
+            name: 'spoilmanagement',
+            component: spoilmanagement
+          },
+          {
+            path: 'usercontrol',
+            name: 'usercontrol',
+            component: usercontrol
+          },
+          {
+            path: 'commodity',
+            name: 'commodity',
+            component: commodity
+          }
+        ]
     },
-   
+
     // {
     //   path: '/reg',
     //   name: 'reg',

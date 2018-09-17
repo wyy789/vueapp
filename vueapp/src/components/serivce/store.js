@@ -25,7 +25,7 @@ export default {
     },
     actions: {
         async asyncGetServiceByPage(context, data,{ curPage, eachPage } = {}) {
-            data =data?data:context.state.data
+            data = data ? data:context.state.data
             // console.log(data,"123123")
             curPage = curPage ? curPage : context.state.curPage
             eachPage = eachPage ? eachPage : context.state.eachPage
