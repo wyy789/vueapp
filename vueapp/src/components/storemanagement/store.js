@@ -1,6 +1,8 @@
 export default {
     namespaced: true,
     state: {
+        curpage: 1,
+        eachpage: 10,
         rows: [
             // {
             //     shopName: "2016-05-03",
@@ -16,20 +18,44 @@ export default {
             //     shopEmployee,
             //     zip,
             // },
-        ]
+        ],
+        maxpage: 0,
+        total: 0
     },
     mutations: {
         getstoreList(state, data) {
             Object.assign(state, data)
             console.log(state)
         },
-        getSearch(state, data) {
-            state.rows = data
+        getEmpPage(state, data) {
+            Object.assign(state, data)
         },
+        setCurpage(state, curpage) {
+            state.curpage = curpage
+        },
+        setEachpage(state, eachpage) {
+            state.eachpage = eachpage
+        },
+        homePage(state) {
+            state.curpage = 1
+        },
+        lastPage(state) {
+            state.curpage = state.maxpage
+        },
+        upPage(state) {
+            if (state.curpage != 1) {
+                state.curpage--
+            }
+        },
+        dnPage(state) {
+            if (state.curpage != state.maxpage) {
+                state.curpage++
+            }
+        }
     },
     actions: {
         async ansycgetStore(context) {
-            let data = await fetch(`/shop?page=${1}&rows=${8}`, {
+            let data = await fetch(`/shop?page=${context.state.curpage}&rows=${context.state.eachpage}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -79,7 +105,7 @@ export default {
         },
         async ansycsearch(context, datas) {
             console.log(datas)
-            let data = await fetch(`/shop?type=${datas.type}&text=${datas.value}`, {
+            let data = await fetch(`/shop?type=${datas.type}&text=${datas.value}&page=${context.state.curpage}&rows=${context.state.eachpage}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -89,7 +115,7 @@ export default {
                 return response.json()
             })
             console.log(data)
-            context.commit("getSearch", data)
+            context.commit("getstoreList", data)
         },
     }
 }

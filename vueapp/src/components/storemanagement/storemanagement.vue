@@ -31,19 +31,22 @@
             </el-table-column>
             <el-table-column prop="shopEmployee" label="店员属性" width="150">
             </el-table-column>
-            <el-table-column prop="status" label="状态">
+            <el-table-column prop="status" label="状态" :filters="[{ text: '未审核', value: '未审核' }, { text: '已审核', value: '已审核' }]" :filter-method="filterTag" filter-placement="bottom-end">
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="100">
+            <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row.status=='未审核'" @click.native.prevent="examine(scope.row)" type="text" size="small">
+                    <el-button type="primary" round v-if="scope.row.status=='未审核'" @click.native.prevent="examine(scope.row)" size="small">
                         审核
                     </el-button>
-                    <el-button @click="Update(scope.row)" type="text" size="small">
+                    <el-button type="primary" round @click="Update(scope.row)" size="small">
                         修改
                     </el-button>
                 </template>
             </el-table-column>
         </el-table>
+        <div style="margin-top:15px">
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="curpage" :page-sizes="[10, 20, 30, 40]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
+        </div>
         <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
             <div>
                 <div>
@@ -93,7 +96,13 @@ export default {
         this.ansycgetStore();
     },
     computed: {
-        ...mapState("storemanagement", ["rows"])
+        ...mapState("storemanagement", [
+            "curpage",
+            "eachpage",
+            "rows",
+            "maxpage",
+            "total"
+        ])
     },
     methods: {
         ...mapActions("storemanagement", [
@@ -102,13 +111,26 @@ export default {
             "asyncstoreUpdate",
             "ansycsearch"
         ]),
-        ...mapMutations("storemanagement", ["getstoreList", "storeExamine"]),
-        search(){
+        ...mapMutations("storemanagement", [
+            "getstoreList",
+            "storeExamine",
+            "setCurpage",
+            "setEachpage",
+            "homePage",
+            "lastPage",
+            "upPage",
+            "dnPage"
+        ]),
+        filterTag(value, row) {
+            console.log(value,row)
+            return row.status === value;
+        },
+        search() {
             // console.log(this.select,this.input)
             this.ansycsearch({
-                type:this.select,
-                value:this.input
-            })
+                type: this.select,
+                value: this.input
+            });
         },
         confirm() {
             this.asyncstoreUpdate(this.form);
@@ -125,7 +147,17 @@ export default {
 
             this.dialogFormVisible = true;
             Object.assign(this.form, rows);
-        } //修改
+        }, //修改
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+            this.setEachpage(val);
+            this.ansycgetStore();
+        },
+        handleCurrentChange(val) {
+            this.setCurpage(val);
+            this.ansycgetStore();
+            console.log(`当前页: ${val}`);
+        }
     },
     data() {
         return {
