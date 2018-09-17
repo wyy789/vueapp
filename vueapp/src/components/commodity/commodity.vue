@@ -2,7 +2,7 @@
 <div>
 <div style="margin-bottom:10px;float:left">
   <el-button slot="prepend" icon="el-icon-plus" style="margin-right:10px" @click="dialogFormVisible = true" ></el-button>
-  <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+  <el-dialog title="添加商品" :visible="dialogFormVisible" close>
   <el-form :model="form">
     <el-form-item label="商品名" :label-width="formLabelWidth">
       <el-input v-model="form.goodsName" auto-complete="off"></el-input>
@@ -232,7 +232,7 @@ export default {
           goodsInrtro: '',
           goodsPrice: '',
           goodsImg: '',
-          delivery: false
+          delivery: false,
         },
         formLabelWidth: '120px'
     }
@@ -248,7 +248,8 @@ export default {
       "setCurPage",
       "setEachPage",
       "prePage",
-      "nextPage"
+      "nextPage",
+      "addGoods"
     ]),
     ...mapActions("commodity", ["asyncGetGoodsByPage", "asyncDleteData"]),
     handleSizeChange(val) {
@@ -267,7 +268,11 @@ export default {
     handleDelete(index, row) {
       this.asyncDleteData(row._id);
       this.asyncGetGoodsByPage();
-    }
+    },
+    close(val){
+        console.log(val)
+        this.addGoods()
+      }
   },
   
 };
