@@ -133,9 +133,9 @@ export default {
     },
     open2(row) {
       // console.log(this)
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+        this.$confirm('此操作将永久删除该条信息, 是否继续?', '提示', {
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'No',
           type: 'warning'
         }).then(() => {
           this.asyncdelete(row._id)
@@ -156,7 +156,7 @@ export default {
        this.setEachPage(val);
         this.asyncGetEmpByPage({
           type:this.input5,
-        value:this.select,
+          value:this.select,
         })
     },
     handleCurrentChange(val) {
@@ -164,7 +164,7 @@ export default {
        this.setCurPage(val);
        this.asyncGetEmpByPage({
           type:this.input5,
-        value:this.select,
+          value:this.select,
         })
     },
     ...mapMutations("theorder", ["setEachPage", "setCurPage",]),

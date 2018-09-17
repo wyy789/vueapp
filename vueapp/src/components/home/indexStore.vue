@@ -21,11 +21,11 @@
                                 </el-menu-item-group>
                             </el-submenu>
                             <el-menu-item index="/indexStore/theorder">
-                                <i class="el-icon-setting"></i>
+                                <i class="el-icon-sold-out"></i>
                                 <span slot="title">订单管理</span>
                             </el-menu-item>
                             <el-menu-item index="3">
-                                <i class="el-icon-setting"></i>
+                                <i class="el-icon-goods"></i>
                                 <span slot="title">商品管理</span>
                             </el-menu-item>
                             <el-menu-item index="/indexStore/serivce">

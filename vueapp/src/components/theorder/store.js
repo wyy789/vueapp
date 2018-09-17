@@ -58,9 +58,9 @@ export default {
         },
         async asyncserach(context,data1,{ curpage, eachpage } = {}) {
             console.log(data1,"11")
-            curpage=curpage ? curpage : context.state.curpage,
-            eachpage=eachpage ? eachpage : context.state.eachpage
-            let y = await fetch(`/theorder/serach?type=${data1.type}&value=${data1.value}&page=${curpage}&rows=${eachpage}`, {
+            // curpage=curpage ? curpage : context.state.curpage,
+             eachpage=eachpage ? eachpage : context.state.eachpage
+            let y = await fetch(`/theorder/serach?type=${data1.type}&value=${data1.value}&page=1&rows=${eachpage}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
