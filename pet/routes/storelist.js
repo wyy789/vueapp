@@ -20,6 +20,7 @@ router.get('/', async function (req, res, next) {
         // console.log(text)
     }
     let data = await client.get('/shop', obj);
+
     console.log(data)
     res.send(data)
 
@@ -128,7 +129,6 @@ router.get('/SeeService/:id', async function (req, res, next) {
 router.post('/ShelvesGoods/:id', async function (req, res, next) {
     let ShopId = req.params.id
     let data = await client.get('/shop/' + ShopId);
-    // console.log(data.goods)
     let arr = [];
     for (let i = 0; i < req.body.length; i++) {
         let goodsID = req.body[i]._id
@@ -136,19 +136,26 @@ router.post('/ShelvesGoods/:id', async function (req, res, next) {
             return n.$id == goodsID;
         });
     }
-    console.log(data)
-    await client.put('/shop/' + ShopId, {goods:data.goods});
-    let newData=await client.get('/shop/' + ShopId);
-    res.send(newData)
-    // console.log(data, "data")
+    console.log(arr)
+    await client.put('/shop/' + ShopId, { goods: data.goods });
+    // let newData = await client.get('/shop/' + ShopId);
+    res.send("suc")
+});
 
-    // res.send(data)
-    // let arr=[];
-    // for(let i=0;i<data.service.length;i++){
-    //     let serviceData = await client.get('/service/'+data.service[i].$id);
-    //     arr.push(serviceData)
-    // }
-    // res.send(arr)
+router.post('/ShelvesServe/:id', async function (req, res, next) {
+    let ShopId = req.params.id
+    let data = await client.get('/shop/' + ShopId);
+    let arr = [];
+    for (let i = 0; i < req.body.length; i++) {
+        let serviceID = req.body[i]._id
+        let evens = _.remove(data.service, function (n) {
+            return n.$id == serviceID;
+        });
+    }
+    console.log(data)
+    await client.put('/shop/' + ShopId, { service: data.service });
+    // let newData = await client.get('/shop/' + ShopId);
+    res.send("suc")
 });
 
 module.exports = router;

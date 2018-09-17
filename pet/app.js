@@ -11,9 +11,8 @@ var commodityRouter = require('./routes/commodity');
 var loginRouter = require('./routes/login');
 var memberRouter = require('./routes/member');
 var serivceRouter = require('./routes/serivce');
-var theordrRouter = require('./routes/theordr');
+var theorderRouter = require('./routes/theorder');
 var storelistRouter = require('./routes/storelist');
-
 
 
 
@@ -36,8 +35,9 @@ app.use('/commodity', commodityRouter);
 app.use('/login', loginRouter);
 app.use('/member', memberRouter);
 app.use('/serivce', serivceRouter);
-app.use('/theordr', theordrRouter);
+app.use('/theorder', theorderRouter);
 app.use('/storelist', storelistRouter);
+
 
 
 // catch 404 and forward to error handler

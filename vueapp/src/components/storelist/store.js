@@ -9,7 +9,11 @@ export default {
         goods: [],
         service: [],
         seeGoods: [],
-        seeService: []
+        seeService: [],
+        obj:{
+            type:"",
+            value:""
+        }
     },
     mutations: {
         getstoreList(state, data) {
@@ -29,10 +33,17 @@ export default {
         getSeeService(state, data) {
             state.seeService = data
         },
+        setCurpage(state, curpage) {
+            state.curpage = curpage
+        },
+        setEachpage(state, eachpage) {
+            state.eachpage = eachpage
+        },
     },
     actions: {
-        async ansycgetStore(context) {
-            let data = await fetch(`/storelist?username=zhangsan&page=${1}&rows=${10}`, {
+        async ansycgetStore(context,obj) {
+            obj=obj?obj:context.state.obj;
+            let data = await fetch(`/storelist?type=${obj.type}&text=${obj.value}&username=zhangsan&page=${context.state.curpage}&rows=${context.state.eachpage}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -123,12 +134,35 @@ export default {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body:JSON.stringify(obj.rows)
+                body: JSON.stringify(obj.rows)
             }).then(response => {
                 return response.json()
             })
             console.log(data)
-           
         },
+
+        async asyncShelvesServe(context, obj) {
+            let data = await fetch(`/storelist/ShelvesServe/${obj.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj.rows)
+            })
+        },
+        async ansycsearch(context, datas) {
+            console.log(datas)
+            let data = await fetch(`/storelist?username=zhangsan&type=${datas.type}&text=${datas.value}&page=${datas.curpage||context.state.curpage}&rows=${datas.eachpage||context.state.eachpage}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(response => {
+                // console.log(response.json())
+                return response.json()
+            })
+            console.log(data)
+            context.commit("getstoreList", data)
+        }
     }
 }

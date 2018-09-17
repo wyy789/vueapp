@@ -3,32 +3,18 @@ export default {
     state: {
         curpage: 1,
         eachpage: 10,
-        rows: [
-            // {
-            //     shopName: "2016-05-03",
-            //     shopLicenceNum: "王小虎",
-            //     shopLicenceImg: "上海",
-            //     shopAdd: "普陀区",
-            //     shopLocation: "上海市普陀区金沙江路 1518 弄",
-            //     shopCorporate: 1,
-            //     shopTel,
-            //     shopImg,
-            //     shopFeature,
-            //     zip1,
-            //     shopEmployee,
-            //     zip,
-            // },
-        ],
+        rows: [],
         maxpage: 0,
-        total: 0
+        total: 0,
+        obj:{
+            type:"",
+            value:""
+        }
     },
     mutations: {
         getstoreList(state, data) {
             Object.assign(state, data)
             console.log(state)
-        },
-        getEmpPage(state, data) {
-            Object.assign(state, data)
         },
         setCurpage(state, curpage) {
             state.curpage = curpage
@@ -54,8 +40,9 @@ export default {
         }
     },
     actions: {
-        async ansycgetStore(context) {
-            let data = await fetch(`/shop?page=${context.state.curpage}&rows=${context.state.eachpage}`, {
+        async ansycgetStore(context,obj) {
+            obj=obj?obj:context.state.obj;
+            let data = await fetch(`/shop?type=${obj.type}&text=${obj.value}&page=${context.state.curpage}&rows=${context.state.eachpage}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -105,7 +92,7 @@ export default {
         },
         async ansycsearch(context, datas) {
             console.log(datas)
-            let data = await fetch(`/shop?type=${datas.type}&text=${datas.value}&page=${context.state.curpage}&rows=${context.state.eachpage}`, {
+            let data = await fetch(`/shop?type=${datas.type}&text=${datas.value}&page=${datas.curpage||context.state.curpage}&rows=${datas.eachpage||context.state.eachpage}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,5 +1,16 @@
 <template>
     <div>
+        <div style="margin-top: 10px;">
+            <el-input placeholder="请输入内容" v-model="input">
+                <el-select v-model="select" slot="prepend" placeholder="请选择">
+                    <el-option label="名称" value="shopName"></el-option>
+                    <el-option label="法人" value="shopCorporate"></el-option>
+                    <el-option label="地址" value="shopAdd"></el-option>
+                    <el-option label="审核状态" value="status"></el-option>
+                </el-select>
+                <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+            </el-input>
+        </div>
         <el-table :data="rows" style="width: 100%" max-height="500" class="tab">
             <el-table-column fixed prop="shopName" label="名称" width="100%">
             </el-table-column>
@@ -45,6 +56,9 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div style="margin-top:15px">
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="curpage" :page-sizes="[5, 10, 20, 30]" :page-size="100" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
+        </div>
         <el-dialog title="商品" :visible.sync="dialogTableVisible">
             <el-table class="tab" ref="multipleTable" :data="goods" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" max-height="250">
                 <el-table-column fixed type="selection" width="55">
@@ -141,7 +155,7 @@
                 </el-table-column>
             </el-table>
             <div style="margin-top: 20px">
-                <el-button>下架</el-button>
+                <el-button @click="shelvesServe">下架</el-button>
                 <el-button @click="toggleSelection()">取消选择</el-button>
             </div>
         </el-dialog>
@@ -176,9 +190,15 @@ export default {
             "asyncPutService",
             "asyncSeeCommodity",
             "asyncSeeService",
-            "asyncShelvesGoods"
+            "asyncShelvesGoods",
+            "asyncShelvesServe",
+            "ansycsearch"
         ]),
-        ...mapMutations("storelist", ["getstoreList"]),
+        ...mapMutations("storelist", [
+            "getstoreList",
+            "setCurpage",
+            "setEachpage"
+        ]),
         addCommodity(rows) {
             // console.log(rows._id);
             this._id = rows._id;
@@ -186,7 +206,6 @@ export default {
             this.ansycgetGoods();
             console.log(this.goods);
             console.log(rows);
-
         }, // 点击添加商品
         addService(rows) {
             this._id = rows._id;
@@ -205,6 +224,15 @@ export default {
                 rows: this.Arr,
                 id: this._id
             });
+            if (this.Arr.length > 0) {
+                this.$message({
+                    message: "提交成功",
+                    type: "success"
+                });
+            } else {
+                this.$message.error("提交失败");
+            }
+            this.$refs.multipleTable.clearSelection();
             this.Arr = [];
         }, //提交选择的商品
         submitService() {
@@ -212,11 +240,19 @@ export default {
                 rows: this.Arr,
                 id: this._id
             });
+            if (this.Arr.length > 0) {
+                this.$message({
+                    message: "提交成功",
+                    type: "success"
+                });
+            } else {
+                this.$message.error("提交失败");
+            }
+            this.$refs.multipleTable.clearSelection();
             this.Arr = [];
         }, //提交选择的服务
 
         SeeCommodity(rows) {
-            
             this._id = rows._id;
             this.SeeCommoditydialogTableVisible = true;
             this.asyncSeeCommodity(rows._id);
@@ -228,16 +264,16 @@ export default {
             this.SeeServicedialogTableVisible = true;
             this.asyncSeeService(rows._id);
         },
-        // shelvesGoods() {
-        //     // console.log(this.Arr)
-        //     this.asyncShelvesGoods({
-        //         rows: this.Arr,
-        //         id: this._id
-        //     });
-        //     this.asyncSeeCommodity(this._id);
-        // },
+        search() {
+            this.ansycsearch({
+                curpage: 1,
+                eachpage: this.eachpage,
+                type: this.select,
+                value: this.input
+            });
+        },
         shelvesGoods() {
-            this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+            this.$confirm("此操作将下架商品, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
@@ -247,12 +283,12 @@ export default {
                         rows: this.Arr,
                         id: this._id
                     });
-                    console.log(this._id)
+                    console.log(this._id);
                     this.asyncSeeCommodity(this._id);
-                    if (this.Arr.length>0) {
+                    if (this.Arr.length > 0) {
                         this.$message({
                             type: "success",
-                            message: "删除成功!"
+                            message: "下架成功!"
                         });
                     } else {
                         this.$message({
@@ -265,13 +301,65 @@ export default {
                 .catch(() => {
                     this.$message({
                         type: "info",
-                        message: "已取消删除"
+                        message: "已取消操作"
                     });
                 });
+        }, //下架商品
+
+        shelvesServe() {
+            this.$confirm("此操作将下架服务, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            })
+                .then(() => {
+                    this.asyncShelvesServe({
+                        rows: this.Arr,
+                        id: this._id
+                    });
+                    console.log(this._id);
+                    this.asyncSeeService(this._id);
+                    if (this.Arr.length > 0) {
+                        this.$message({
+                            type: "success",
+                            message: "下架成功!"
+                        });
+                    } else {
+                        this.$message({
+                            type: "info",
+                            message: "请选择数据!"
+                        });
+                    }
+                    this.asyncSeeService(this._id);
+                })
+                .catch(() => {
+                    this.$message({
+                        type: "info",
+                        message: "已取消操作"
+                    });
+                });
+        }, //下架服务
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+            this.setEachpage(val);
+            this.ansycgetStore({
+                type: this.select,
+                value: this.input
+            });
+        },
+        handleCurrentChange(val) {
+            this.setCurpage(val);
+            this.ansycgetStore({
+                type: this.select,
+                value: this.input
+            });
+            console.log(`当前页: ${val}`);
         }
     },
     data() {
         return {
+            input: "",
+            select: "",
             Arr: [],
             input: "",
             select: "",

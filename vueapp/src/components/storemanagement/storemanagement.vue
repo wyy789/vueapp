@@ -6,6 +6,7 @@
                     <el-option label="名称" value="shopName"></el-option>
                     <el-option label="法人" value="shopCorporate"></el-option>
                     <el-option label="地址" value="shopAdd"></el-option>
+                    <el-option label="审核状态" value="status"></el-option>
                 </el-select>
                 <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
             </el-input>
@@ -28,8 +29,6 @@
             <el-table-column prop="shopImg" label="头图" width="150">
             </el-table-column>
             <el-table-column prop="shopFeature" label="特色" width="150">
-            </el-table-column>
-            <el-table-column prop="shopEmployee" label="店员属性" width="150">
             </el-table-column>
             <el-table-column prop="status" label="状态" :filters="[{ text: '未审核', value: '未审核' }, { text: '已审核', value: '已审核' }]" :filter-method="filterTag" filter-placement="bottom-end">
             </el-table-column>
@@ -122,12 +121,14 @@ export default {
             "dnPage"
         ]),
         filterTag(value, row) {
-            console.log(value,row)
+            console.log(value, row);
             return row.status === value;
         },
         search() {
             // console.log(this.select,this.input)
             this.ansycsearch({
+                curpage: 1,
+                eachpage: this.eachpage,
                 type: this.select,
                 value: this.input
             });
@@ -151,11 +152,17 @@ export default {
         handleSizeChange(val) {
             console.log(`每页 ${val} 条`);
             this.setEachpage(val);
-            this.ansycgetStore();
+            this.ansycgetStore({
+                type: this.select,
+                value: this.input
+            });
         },
         handleCurrentChange(val) {
             this.setCurpage(val);
-            this.ansycgetStore();
+            this.ansycgetStore({
+                type: this.select,
+                value: this.input
+            });
             console.log(`当前页: ${val}`);
         }
     },
