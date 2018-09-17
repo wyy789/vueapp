@@ -12,8 +12,11 @@ var loginRouter = require('./routes/login');
 var memberRouter = require('./routes/member');
 var serivceRouter = require('./routes/serivce');
 var theorderRouter = require('./routes/theorder');
+<<<<<<< HEAD
 var storelistRouter = require('./routes/storelist');
 
+=======
+>>>>>>> 74379e0b743047a92c4cb952dc6d762735703891
 
 
 var app = express();
@@ -36,8 +39,11 @@ app.use('/login', loginRouter);
 app.use('/member', memberRouter);
 app.use('/serivce', serivceRouter);
 app.use('/theorder', theorderRouter);
+<<<<<<< HEAD
 app.use('/storelist', storelistRouter);
 
+=======
+>>>>>>> 74379e0b743047a92c4cb952dc6d762735703891
 
 
 // catch 404 and forward to error handler
